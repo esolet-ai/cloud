@@ -248,6 +248,11 @@ strong, b { color: var(--fg); font-weight: 700; }
 .seg-core { background: var(--c-brand); }
 .seg-proj { background: var(--c-cta); }
 .seg-etc { background: var(--c-ink-4); padding: 0 !important; }
+/* 전체 시간 구성 막대 — 정규교과 → 프로젝트 → 재량 순서로 늘어남 */
+.js .hours-bar .seg { width: 0; transition: width 1.1s var(--ease-in); }
+.js .hours-bar .seg-proj { transition-delay: .35s; }
+.js .hours-bar .seg-etc { transition-delay: .7s; }
+.js .hours-bar.is-in .seg { width: calc(var(--w) * 1%); }
 .hours-legend { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-bottom: 32px; }
 .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
 .sw-core { background: var(--c-brand); } .sw-proj { background: var(--c-cta); } .sw-etc { background: var(--c-ink-4); }
@@ -271,6 +276,10 @@ strong, b { color: var(--fg); font-weight: 700; }
   background-size: calc(var(--h, 0) / 200 * 100%) 100%;
 }
 .course-list .is-project summary::after { background-image: linear-gradient(var(--c-cta), var(--c-cta)); }
+/* 교과 시간 막대 — 화면에 들어오면 왼쪽부터 차오름 (교과별 순차 지연 --d) */
+.js .course-list details summary::after { background-size: 0 100%; transition: background-size 1.2s var(--ease-in) var(--d, 0s); }
+.js .phase.is-in .course-list details summary::after { background-size: calc(var(--h, 0) / 200 * 100%) 100%; }
+.course-list details summary:hover::after { filter: brightness(1.08); }
 .course-list details p { font-size: 13px; line-height: 1.6; padding: 0 0 14px; color: var(--text); }
 .course-list .is-project .c-name { color: var(--c-accent); }
 .course-list details[open] summary .c-name { color: var(--c-brand); }

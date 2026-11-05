@@ -126,9 +126,15 @@ function initTabs() {
 /* ---------- 5. 스크롤 등장 효과 ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    '.section-head, .ops-flow, .card-grid, .phase, .project, .row-list, .career-col, .chart, .partner-stats, .glossary-list, .adm-grid > div, .score-grid, .schedule, .flow-line, .faq, .livery-inner'
+    '.section-head, .ops-flow, .card-grid, .hours-bar, .phase, .project, .row-list, .career-col, .chart, .partner-stats, .glossary-list, .adm-grid > div, .score-grid, .schedule, .flow-line, .faq, .livery-inner'
   );
-  if (!('IntersectionObserver' in window)) return;
+  // 커리큘럼 막대: 단계(STEP)와 교과 순서에 따라 차오르는 시점을 조금씩 늦춤
+  document.querySelectorAll('.phase').forEach((phase, p) => {
+    phase.querySelectorAll('.course-list summary').forEach((sum, i) => {
+      sum.style.setProperty('--d', `${0.25 + p * 0.12 + i * 0.14}s`);
+    });
+  });
+  if (!('IntersectionObserver' in window)) { targets.forEach((el) => el.classList.add('is-in')); return; }
   targets.forEach((el) => el.classList.add('reveal'));
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach((entry) => {
